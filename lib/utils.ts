@@ -1,7 +1,7 @@
 import { CURRENCY } from "@data/constants";
 
 export const formatCurrency = (amount: number, currency: keyof typeof CURRENCY) => {
-  return amount.toLocaleString(CURRENCY[currency], {
+  return amount.toLocaleString('en-US', {
     style: 'currency',
     currency: currency,
   });

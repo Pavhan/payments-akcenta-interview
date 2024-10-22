@@ -1,9 +1,10 @@
 import { PAYMENT_STATUSES, PAYMENT_TYPES } from "@data/constants";
 import { IPayment } from "@data/types";
 import Link from "next/link";
+import Payments from "./payments";
 
 
-export default async function Payments() {
+export default async function PaymentsPage() {
 
   if( typeof process.env.FETCH_URL !== "string" ){
     throw new Error('Please set you FETCH_URL in .env.local');
@@ -13,33 +14,7 @@ export default async function Payments() {
           
   return (
     <>
-    <h1 className="text-4xl font-bold">Payments</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Payment ID</th>
-          <th>Timestamp</th>
-          <th>Amount</th>
-          <th>Currency</th>
-          <th>Payment Type</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {paymentsResult.map(({paymentId, timestamp, amount, currency, paymentType, status}) => (
-          <tr key={paymentId}>
-            <td>{paymentId}</td>
-            <td>{new Date(timestamp).toDateString()}</td>
-            <td>{amount}</td>
-            <td>{currency}</td>
-            <td>{PAYMENT_TYPES[paymentType]}</td>
-            <td>{PAYMENT_STATUSES[status]}</td>
-            <td><Link href={`payments/${paymentId}`}>Detail</Link></td>
-          </tr>
-        ))}
-      </tbody>
-      </table>
+      <Payments payments={paymentsResult} />
     </>
   );
 } 

@@ -7,7 +7,7 @@ export default function PaymentStatus({ status }: { status: keyof typeof PAYMENT
   return (
     <span
       className={clsx(
-        'inline-flex items-center rounded-full pl-4 pr-2 py-1 text-sm gap-2',
+        'inline-flex items-center rounded-full min-w-28 justify-center pl-4 pr-2 py-1 text-sm gap-2',
         {
           'bg-gray-100 text-gray-500': status === 'PENDING',
           'bg-green-500 text-white': status === 'SUCCESS',

@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import Payment from './payments';
 
 
-export default async function InvoicePage({params}: {params: {paymentId: string}}) {
+export default async function PaymentPage({params}: {params: {paymentId: string}}) {
   const { paymentId } = await params;
   
   if(isNaN(parseInt(paymentId))) {
