@@ -1,5 +1,6 @@
-import { PAYMENT_STATUSES, PAYMENT_TYPES } from "@data/constatns";
+import { PAYMENT_STATUSES, PAYMENT_TYPES } from "@data/constants";
 import { IPayment } from "@data/types";
+import Link from "next/link";
 
 
 export default async function Payments() {
@@ -8,8 +9,7 @@ export default async function Payments() {
     throw new Error('Please set you FETCH_URL in .env.local');
   }
   
-  const paymentsResult: IPayment[] = await fetch(process.env.FETCH_URL)
-  .then(response => response.json())
+  const paymentsResult: IPayment[] = await fetch(process.env.FETCH_URL).then(response => response.json())
           
   return (
     <>
@@ -23,6 +23,7 @@ export default async function Payments() {
           <th>Currency</th>
           <th>Payment Type</th>
           <th>Status</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +35,7 @@ export default async function Payments() {
             <td>{currency}</td>
             <td>{PAYMENT_TYPES[paymentType]}</td>
             <td>{PAYMENT_STATUSES[status]}</td>
+            <td><Link href={`payments/${paymentId}`}>Detail</Link></td>
           </tr>
         ))}
       </tbody>

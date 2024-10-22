@@ -1,6 +1,22 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { CURRENCY } from "@data/constants";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export const formatCurrency = (amount: number, currency: keyof typeof CURRENCY) => {
+  return amount.toLocaleString(CURRENCY[currency], {
+    style: 'currency',
+    currency: currency,
+  });
+};
+
+export const formatDateToLocal = (
+  dateStr: number,
+  locale: string = 'en-US',
+) => {
+  const date = new Date(dateStr);
+  const options: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
+  const formatter = new Intl.DateTimeFormat(locale, options);
+  return formatter.format(date);
+};

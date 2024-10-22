@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "@components/*": ["./componets/*"],
+      "@components/*": ["./components/*"],
       "@lib/*": ["./lib/*"],
       "@data/*": ["./data/*"]
     }
