@@ -1,10 +1,10 @@
 import { CURRENCY } from "@data/constants";
 
 export const formatCurrency = (amount: number, currency: keyof typeof CURRENCY) => {
-  return amount.toLocaleString('en-US', {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: currency,
-  });
+  }).format(amount);
 };
 
 export const formatDateToLocal = (
