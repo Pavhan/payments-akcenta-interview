@@ -5,7 +5,7 @@ import Payment from './payments';
 
 
 export default async function PaymentPage({params}: {params: {paymentId: string}}) {
-  const { paymentId } = await params;
+  const { paymentId } = params;
   
   if(isNaN(parseInt(paymentId))) {
     throw new Error('Invalid Payment ID');
