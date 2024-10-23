@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <Container className="flex flex-col min-h-screen h-full w-full">
           <header className="py-4 border-b border-gray-300 flex justify-between flex-wrap gap-2 items-center">
-            <h1><Link href="/" className="font-bold text-2xl no-underline underline-none">Payment App</Link></h1>
+            <h1><Link href="/" className="font-bold text-2xl text-black no-underline underline-none">Payment App</Link></h1>
           </header>
           <main className="flex-grow py-4">
             {children}

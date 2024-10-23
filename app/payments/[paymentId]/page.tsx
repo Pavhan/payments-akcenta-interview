@@ -3,9 +3,8 @@ import { IPayment } from '@data/types';
 import { notFound } from 'next/navigation'
 import Payment from './payments';
 
-
 export default async function PaymentPage({params}: {params: {paymentId: string}}) {
-  const { paymentId } = params;
+  const { paymentId } = await params;
   
   if(isNaN(parseInt(paymentId))) {
     throw new Error('Invalid Payment ID');
