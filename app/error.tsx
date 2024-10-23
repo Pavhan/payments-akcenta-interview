@@ -11,7 +11,7 @@ export default function Error({error}: {error: Error}) {
       <p className="text-lg mb-6">Error: {error.message}</p>
       <Link
         href="/"
-        className="rounded-md bg-red-500 px-4 font-bold py-2 no-underline text-sm text-white transition-colors hover:bg-red-800"
+        className="rounded-md inline-block bg-red-500 px-4 font-bold py-2 no-underline text-sm text-white transition-colors hover:bg-red-800"
       >
         Back home
       </Link>
