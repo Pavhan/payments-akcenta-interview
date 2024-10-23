@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-import { CURRENCY, PAYMENT_STATUSES, PAYMENT_TYPES } from "@data/constants";
+import { PAYMENT_TYPES } from "@data/constants";
 import { IPayment } from "@data/types";
 import { formatDateToLocal } from "@lib/utils";
 import {
@@ -11,12 +11,17 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
   useReactTable,
+  getPaginationRowModel,
+  ColumnFiltersState,
+  ColumnDef,
 } from "@tanstack/react-table"
 import Link from "next/link"
 import { useState } from 'react'
-import Select from "@components/Select/select";
+import PaymentStatus from "@components/PaymentStatus/PaymentStatus";
+import Filtering from "@components/Filtering/Filtering";
+import Pagination from "@components/Pagination/Pagination";
 
-const columns = [
+const columns: ColumnDef<IPayment>[] = [
   {
     header: "ID",
     accessorKey: "paymentId",
@@ -42,59 +47,39 @@ const columns = [
   {
     header: "Status",
     accessorKey: "status",
-    accessorFn: (row: IPayment) =>  PAYMENT_STATUSES[row.status],
+    cell: info => <PaymentStatus status={info.getValue()} />,
   },
 ]
 
 export default function PaymentsTable({ data }: { data: IPayment[] }) {
   const [sorting, setSorting] = useState<SortingState>([])
-  const [filtering, setFiltering] = useState('')
+  const [filtering, setFiltering] = useState('');
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
-  const table = useReactTable({
+  const table = useReactTable<IPayment>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
+      columnFilters,
       sorting: sorting,
       globalFilter: filtering,
     },
+    onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
     onGlobalFilterChange: setFiltering,
   })
 
-  const handleFilteringChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-   setFiltering(e.target.value)
-  }
-
   return (
     <>
       <h1 className="text-4xl font-bold mb-6">Payments</h1>
-      <strong className="block mb-2">Filter by:</strong>
-      <div className="flex mb-4 gap-3 bg-gray-100 p-4 rounded-lg">
-        
-        <div>
-          <strong className="block mb-2">Currency</strong>
-          <Select onChange={handleFilteringChange}>  
-            {Object.keys(CURRENCY).map((key) => <option key={key} value={key}>{key}</option>)}
-          </Select>
-        </div>
-        <div>
-          <strong className="block mb-2">Type</strong>
-          <Select onChange={handleFilteringChange}>
-            {Object.entries(PAYMENT_TYPES).map(([key,value]) => <option key={key} value={value}>{value}</option>)}
-          </Select>
-        </div>
-        <div>
-          <strong className="block mb-2">Status</strong>
-          <Select onChange={handleFilteringChange}>
-            {Object.entries(PAYMENT_STATUSES).map(([key,value]) => <option key={key} value={value}>{value}</option>)}
-          </Select>
-        </div>
-      </div> 
+      
+      <Filtering onChange={setFiltering} />
 
-      <div className="rounded-lg bg-gray-200 p-2 overflow-x-auto">
+      <div className="rounded-lg bg-gray-200 p-2 overflow-x-auto mb-4">
         <table className="text-gray-900 min-w-full">
           <thead className="rounded-lg text-left text-sm font-normal">
             {table.getHeaderGroups().map(headerGroup => (
@@ -146,6 +131,7 @@ export default function PaymentsTable({ data }: { data: IPayment[] }) {
           </tbody>
         </table>
       </div>
+      <Pagination data={table} />
     </>
   )
 }
