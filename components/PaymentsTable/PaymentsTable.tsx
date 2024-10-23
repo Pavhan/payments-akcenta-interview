@@ -75,10 +75,7 @@ export default function PaymentsTable({ data }: { data: IPayment[] }) {
 
   return (
     <>
-      <h1 className="text-4xl font-bold mb-6">Payments</h1>
-      
       <Filtering onChange={setFiltering} />
-
       <div className="rounded-lg bg-gray-200 p-2 overflow-x-auto mb-4">
         <table className="text-gray-900 min-w-full">
           <thead className="rounded-lg text-left text-sm font-normal">
@@ -122,7 +119,7 @@ export default function PaymentsTable({ data }: { data: IPayment[] }) {
                   </td>
                 ))}
                   <td className="whitespace-nowrap px-2 py-3">
-                    <Link href={`payments/${row.original.paymentId}`} className="rounded-md bg-blue-500 block text-center px-4 font-bold py-2 text-sm text-white transition-colors hover:bg-blue-800">
+                    <Link href={`payments/${row.original.paymentId}`} className="rounded-md bg-blue-500 block text-center px-4 font-bold py-2 text-sm text-white transition-colors hover:bg-blue-800 no-underline">
                       Detail
                     </Link>
                   </td>
