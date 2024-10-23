@@ -6,7 +6,7 @@ interface ContainerProps extends React.ComponentProps<"div"> {
 
 const Container = ({children, className, ...props}: ContainerProps) => {
   return (
-    <div {...props} className={clsx("max-w-5xl mx-auto px-8 py-12", className)}>
+    <div {...props} className={clsx("max-w-5xl mx-auto px-8", className)}>
       {children}
    </div>
   );
