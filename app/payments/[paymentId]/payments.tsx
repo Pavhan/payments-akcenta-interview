@@ -9,7 +9,20 @@ interface IPaymentProps {
   payment: IPayment;
 }
 
-export default function Payment({payment}: IPaymentProps) {
+interface IPaymentDetail {
+  paymentId: string;
+  recipient: string;
+  note: string;
+}
+
+export default async function Payment({payment}: IPaymentProps) {
+  if( typeof process.env.FETCH_URL !== "string" ){
+    throw new Error('Please set you FETCH_URL in .env.local');
+  }
+
+  const paymentsDetail: IPaymentDetail = await fetch(`${process.env.FETCH_URL}/details/${payment.paymentId}.json`)
+  .then(response => response.json());
+
   return (
     <>
       <p className="mb-10">
@@ -22,7 +35,15 @@ export default function Payment({payment}: IPaymentProps) {
       </div>
       <div className="rounded-md bg-gray-200 p-6">
         <ul className="grid gap-2">
-        <li className="flex gap-4 items-center">
+          <li className="flex gap-4 items-center">
+            <strong className="block w-20 flex-shring-0 font-bold text-sm">Recepient:</strong>
+            <span>{paymentsDetail.recipient}</span>
+          </li>
+          <li className="flex gap-4 items-center">
+            <strong className="block w-20 flex-shring-0 font-bold text-sm">Note:</strong>
+            <div dangerouslySetInnerHTML={{ __html: paymentsDetail.note }} />
+          </li>
+          <li className="flex gap-4 items-center">
             <strong className="block w-20 flex-shring-0 font-bold text-sm">Amount:</strong>
             <strong className="text-xl">{formatCurrency(payment.amount, payment.currency)}</strong>
           </li>

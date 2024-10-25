@@ -14,7 +14,7 @@ export default async function PaymentPage({params}: {params: {paymentId: string}
     throw new Error('Please set you FETCH_URL in .env.local');
   }
 
-  const paymentsResult: IPayment[] = await fetch(process.env.FETCH_URL)
+  const paymentsResult: IPayment[] = await fetch(`${process.env.FETCH_URL}/index.json`)
   .then(response => response.json());
 
   const payment = paymentsResult.find(payment => payment.paymentId === paymentId);

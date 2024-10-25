@@ -7,7 +7,7 @@ export default async function PaymentsPage() {
     throw new Error('Please set you FETCH_URL in .env.local');
   }
   
-  const paymentsResult: IPayment[] = await fetch(process.env.FETCH_URL).then(response => response.json());
+  const paymentsResult: IPayment[] = await fetch(`${process.env.FETCH_URL}/index.json`).then(response => response.json());
 
   return <PaymentsTable data={paymentsResult} />;
 } 

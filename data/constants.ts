@@ -16,4 +16,4 @@ export const CURRENCY = {
   'EUR': 'en-GB',
   'CZK': 'cs-CZ',
   'HUF': 'hu-HU',
-}
+} as const;

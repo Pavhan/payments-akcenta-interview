@@ -119,7 +119,7 @@ export default function PaymentsTable({ data }: { data: IPayment[] }) {
                   </td>
                 ))}
                   <td className="whitespace-nowrap px-2 py-3">
-                    <Link href={`payments/${row.original.paymentId}`} className="rounded-md bg-blue-500 inline-block text-center px-4 font-bold py-2 text-sm text-white transition-colors hover:bg-blue-800 no-underline">
+                    <Link href={`/payments/${row.original.paymentId}`} className="rounded-md bg-blue-500 inline-block text-center px-4 font-bold py-2 text-sm text-white transition-colors hover:bg-blue-800 no-underline">
                       Detail
                     </Link>
                   </td>
